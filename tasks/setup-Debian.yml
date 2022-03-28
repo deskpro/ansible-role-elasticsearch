@@ -16,3 +16,11 @@
     repo: 'deb https://artifacts.elastic.co/packages/{{ elasticsearch_version }}/apt stable main'
     state: present
     update_cache: true
+  when: elasticsearch_repository_url == ''
+
+- name: Add Elasticsearch repository.
+  apt_repository:
+    repo: "deb {{ elasticsearch_repository_url }} stable main"
+    state: present
+    update_cache: true
+  when: elasticsearch_repository_url != ''
